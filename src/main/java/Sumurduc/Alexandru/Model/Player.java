@@ -1,5 +1,12 @@
 package Sumurduc.Alexandru.Model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public class Player {
     private Long id;
     private String username;
@@ -12,17 +19,19 @@ public class Player {
     public Player() {
     }
 
-
-
-    public Player(Long id, String username, String email, String phone, String password, Float Bank, Boolean privatef) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-        this.bank = Bank;
-        this.privatef = privatef;
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", bank=" + bank +
+                ", privatef=" + privatef +
+                '}';
     }
+
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }

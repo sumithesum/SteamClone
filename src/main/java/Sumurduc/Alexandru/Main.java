@@ -10,7 +10,7 @@ public class Main {
 
         JdbcTemplate jdbcTemplate = context.getBean(JdbcTemplate.class);
 
-        Try.create(jdbcTemplate);
+        //Try.create(jdbcTemplate);
         //Try.drops(jdbcTemplate);
         context.close();
 

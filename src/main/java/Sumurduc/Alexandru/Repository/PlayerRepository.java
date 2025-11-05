@@ -2,6 +2,7 @@ package Sumurduc.Alexandru.Repository;
 
 
 import Sumurduc.Alexandru.Model.Player;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -30,4 +31,28 @@ public class PlayerRepository {
         """, player.getUsername(), player.getEmail(), player.getPhone(),
                 player.getPassword(), player.getBank(), player.getPrivatef());
     }
+
+    public void delete(String username) {
+
+        String sql = "DELETE FROM player WHERE username = ?";
+        jdbcTemplate.update(sql, username);
+        int rows = jdbcTemplate.update(sql, username);
+
+    }
+
+//    public Integer update(String username,Integer pozition){
+//        String sql = "SELECT * FROM player WHERE username = ?";
+//
+//
+//        try {
+//            return jdbcTemplate.queryForObject(
+//                    sql,
+//                    new BeanPropertyRowMapper<>(Player.class),
+//                    username
+//            );
+//        } catch (EmptyResultDataAccessException e) {
+//            // dacă nu există niciun jucător cu acel username, întoarce null
+//            return 0;
+//        }
+//    }
 }

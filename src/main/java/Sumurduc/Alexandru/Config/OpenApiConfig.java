@@ -12,8 +12,8 @@ public class OpenApiConfig {
     public OpenAPI steamCloneOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("🎮 Steam Clone API")
-                        .version("1.0.0")
+                        .title("Steam Clone API")
+                        .version("0.3.0")
                         .description("REST API pentru gestionarea utilizatorilor și dezvoltatorilor din SteamClone."));
     }
 }

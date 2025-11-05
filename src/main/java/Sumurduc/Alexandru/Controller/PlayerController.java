@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/players")
+@RequestMapping("/players")
 public class PlayerController {
     private final PlayerRepository playerRepository;
 
@@ -15,7 +15,7 @@ public class PlayerController {
         this.playerRepository = playerRepository;
     }
 
-    // GET /api/players
+    // GET  /api/players
     @GetMapping
     public List<Player> getPlayers() {
         return playerRepository.findAll();
@@ -27,4 +27,16 @@ public class PlayerController {
         playerRepository.add(player);
         return "Player added";
     }
+
+    @DeleteMapping("/{username}")
+    public String deletePlayer(@RequestBody String username){
+        playerRepository.delete(username);
+        return "Player Deleted";
+
+    }
+
+//    @PutMapping
+//    public String updatePlayer(@RequestBody String username,Integer category){
+//        return "Player updated";
+//    }
 }
