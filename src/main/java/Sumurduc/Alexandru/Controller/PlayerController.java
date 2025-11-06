@@ -1,5 +1,6 @@
 package Sumurduc.Alexandru.Controller;
 
+import Sumurduc.Alexandru.Repository.FriendsRepository;
 import Sumurduc.Alexandru.Repository.PlayerRepository;
 import Sumurduc.Alexandru.Model.Player;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @RequestMapping("/players")
 public class PlayerController {
     private final PlayerRepository playerRepository;
+
 
     public PlayerController(PlayerRepository playerRepository) {
         this.playerRepository = playerRepository;

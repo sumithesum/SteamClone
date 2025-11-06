@@ -5,6 +5,7 @@ import Sumurduc.Alexandru.Model.Player;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,6 +39,12 @@ public class PlayerRepository {
         jdbcTemplate.update(sql, username);
         int rows = jdbcTemplate.update(sql, username);
 
+    }
+
+    public Integer getId(String username){
+        String sql = "Select player_id from player where username = ?" ;
+
+        return jdbcTemplate.queryForObject(sql,Integer.class,username);
     }
 
 //    public Integer update(String username,Integer pozition){

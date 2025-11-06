@@ -44,7 +44,7 @@ public class DeveloperRepository {
 
         String sql = "DELETE FROM DEVELOPER WHERE username = ?";
         jdbcTemplate.update(sql, username);
-        int rows = jdbcTemplate.update(sql, username);
 
+        System.out.println("Developer deleted: " + username);
     }
 }
