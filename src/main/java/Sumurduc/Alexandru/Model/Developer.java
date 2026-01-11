@@ -1,86 +1,62 @@
 package Sumurduc.Alexandru.Model;
 
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.*;
 
-@AllArgsConstructor
 public class Developer {
 
     private Long id;
+
+    @NotBlank(message = "username is required")
+    @Size(min = 3, max = 100)
     private String username;
+
+    @Email(message = "email must be valid")
     private String email;
+
+    @Size(max = 50)
     private String phone;
+
+    @NotBlank(message = "password is required")
+    @Size(min = 6, max = 255)
     private String password;
+
+    @PositiveOrZero(message = "bank must be >= 0")
     private Float bank;
-    private String studio_name;
 
-   public Developer(){}
+    @Size(max = 255)
+    private String studioName;
 
-    @Override
-    public String toString() {
-        return "Developer{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", bank=" + bank +
-                ", studio_name='" + studio_name + '\'' +
-                '}';
-    }
+    public Developer() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Developer(Long id, String username, String email, String phone,
+                     String password, Float bank, String studioName) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Float getBank() {
-        return bank;
-    }
-
-    public void setBank(Float bank) {
         this.bank = bank;
+        this.studioName = studioName;
     }
 
-    public String getStudio_name() {
-        return studio_name;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setStudio_name(String studio_name) {
-        this.studio_name = studio_name;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
+
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public Float getBank() { return bank; }
+    public void setBank(Float bank) { this.bank = bank; }
+
+    public String getStudioName() { return studioName; }
+    public void setStudioName(String studioName) { this.studioName = studioName; }
 }

@@ -33,6 +33,11 @@ public class PlayerRepository {
                 player.getPassword(), player.getBank(), player.getPrivatef());
     }
 
+    public int deleteByUsername(String username) {
+        String sql = "DELETE FROM Player WHERE username = ?";
+        return jdbcTemplate.update(sql, username);
+    }
+
     public void delete(String username) {
 
         String sql = "DELETE FROM player WHERE username = ?";
@@ -58,7 +63,7 @@ public class PlayerRepository {
 //                    username
 //            );
 //        } catch (EmptyResultDataAccessException e) {
-//            // dacă nu există niciun jucător cu acel username, întoarce null
+//
 //            return 0;
 //        }
 //    }

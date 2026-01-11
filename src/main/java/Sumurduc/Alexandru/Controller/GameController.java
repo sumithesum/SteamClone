@@ -1,38 +1,44 @@
 package Sumurduc.Alexandru.Controller;
 
-import Sumurduc.Alexandru.Model.Developer;
 import Sumurduc.Alexandru.Model.Game;
-import Sumurduc.Alexandru.Repository.DeveloperRepository;
-import Sumurduc.Alexandru.Repository.GameRepository;
+import Sumurduc.Alexandru.Services.GameService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @RestController
 @RequestMapping("/games")
 public class GameController {
-    private final GameRepository gameRepository;
 
-    public GameController(GameRepository gameRepository) {
-        this.gameRepository = gameRepository;
+    private final GameService gameService;
+
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
     }
 
-    // GET  /api/players
     @GetMapping
-    public List<Game> getPlayers() {
-        return gameRepository.findAll();
+    public List<Game> getAllGames() {
+        return gameService.getAllGames();
     }
 
-    // POST /api/players
+    @GetMapping("/developer/{username}")
+    public List<Game> getGamesOfDeveloper(@PathVariable String username) {
+        return gameService.getGamesOfDeveloper(username);
+    }
+
     @PostMapping
-    public String addPlayer(@RequestBody Game game) {
-        gameRepository.add(game);
-        return "Game added";
+    public ResponseEntity<String> addGame(@Valid @RequestBody Game game) {
+        gameService.addGame(game);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Game added");
     }
 
     @DeleteMapping("/{title}")
-    public String deletePlayer(@RequestBody String title){
-        gameRepository.delete(title);
-        return "Game Deleted";
-
+    public ResponseEntity<String> deleteGame(@PathVariable String title) {
+        boolean deleted = gameService.deleteByTitle(title);
+        return deleted ? ResponseEntity.noContent().build()
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game not found");
     }
 }

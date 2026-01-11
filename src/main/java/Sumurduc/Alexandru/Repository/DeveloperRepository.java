@@ -34,10 +34,14 @@ public class DeveloperRepository {
                 developer.getPhone(),
                 developer.getPassword(),
                 developer.getBank(),
-                developer.getStudio_name()
+                developer.getStudioName()
         );
 
         System.out.println("Developer added: " + developer.getUsername());
+    }
+    public int deleteByUsername(String username) {
+        String sql = "DELETE FROM Developer WHERE username = ?";
+        return jdbcTemplate.update(sql, username);
     }
 
     public void delete(String username) {

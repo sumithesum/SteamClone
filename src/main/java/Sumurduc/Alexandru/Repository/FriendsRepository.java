@@ -16,32 +16,42 @@ public class FriendsRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public int addFriend(Integer pid, Integer fid) {
+        // bidirectional friendship (A->B and B->A)
+        String sql = "INSERT INTO Friends (player_id, friend_id) VALUES (?, ?)";
+        int r1 = jdbcTemplate.update(sql, pid, fid);
+        int r2 = jdbcTemplate.update(sql, fid, pid);
+        return r1 + r2;
+    }
 
-    public List<Player> findAllFriends (Integer playerID){
+    public int destroyFriendShip(Integer pid, Integer fid) {
+        String sql = "DELETE FROM Friends WHERE player_id = ? AND friend_id = ?";
+        int r1 = jdbcTemplate.update(sql, pid, fid);
+        int r2 = jdbcTemplate.update(sql, fid, pid);
+        return r1 + r2;
+    }
+
+    public int deleteAllFriendShips(Integer pid) {
+        String sql = "DELETE FROM Friends WHERE player_id = ?";
+        return jdbcTemplate.update(sql, pid);
+    }
+
+    public List<Player> findFriendsOfPlayer(Integer playerId) {
+        // mapare corectă: player_id -> id, private -> privatef
         String sql = """
-                SELECT p.*
-                FROM friends f , player p
-                WHERE f.friend_id = p.player_id AND f.player_id = """ + playerID;
-        return this.jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Player.class));
+            SELECT
+                p.player_id AS id,
+                p.username,
+                p.email,
+                p.phone,
+                p.password,
+                p.bank,
+                p.private AS privatef
+            FROM Friends f
+            JOIN Player p ON p.player_id = f.friend_id
+            WHERE f.player_id = ?
+        """;
+
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Player.class), playerId);
     }
-
-    public void addFriend(Integer pid,Integer fid){
-        String sql = "INSERT INTO FRIENDS (player_id,friend_id) VALUES (?,?)";
-        jdbcTemplate.update(sql,pid,fid);
-        jdbcTemplate.update(sql,fid,pid);
-
-
-    }
-
-    public void destroyFriendShip(Integer pid , Integer fid){
-        String sql = "DELETE FROM FRIENDS WHERE player_id = ? AND friend_id = ?";
-        jdbcTemplate.update(sql,pid,fid);
-        jdbcTemplate.update(sql,fid,pid);
-    }
-
-    public void  deleteAllFriendShips(Integer pid){
-        String sql = "DELETE FROM FRIENDS WHERE player_id = ?";
-        jdbcTemplate.update(sql,pid);
-    }
-
 }

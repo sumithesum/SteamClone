@@ -1,80 +1,52 @@
 package Sumurduc.Alexandru.Model;
 
+import jakarta.validation.constraints.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-@AllArgsConstructor
 public class Game {
+    private Integer gameId;
 
-    public Game(){}
+    @NotNull(message = "devId is required")
+    private Integer devId;
 
-    public Integer getDiscount() {
-        return discount;
-    }
+    @NotBlank(message = "title is required")
+    @Size(max = 255, message = "title too long")
+    private String title;
 
-    public void setDiscount(Integer discount) {
-        this.discount = discount;
-    }
+    @Size(max = 255, message = "tags too long")
+    private String tags;
 
-    public Float getPrice() {
-        return price;
-    }
+    @Size(max = 5000, message = "description too long")
+    private String description;
 
-    public void setPrice(Float price) {
-        this.price = price;
-    }
+    @NotNull(message = "price is required")
+    @PositiveOrZero(message = "price must be >= 0")
+    private Float price;
 
-    public String getDescription() {
-        return description;
-    }
+    @NotNull(message = "discount is required")
+    @Min(value = 0, message = "discount must be >= 0")
+    @Max(value = 100, message = "discount must be <= 100")
+    private Integer discount;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public Game() {}
 
-    public String getTags() {
-        return tags;
-    }
+    public Integer getGameId() { return gameId; }
+    public void setGameId(Integer gameId) { this.gameId = gameId; }
 
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
+    public Integer getDevId() { return devId; }
+    public void setDevId(Integer devId) { this.devId = devId; }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public String getTags() { return tags; }
+    public void setTags(String tags) { this.tags = tags; }
 
-    public Integer getDevId() {
-        return devId;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setDevId(Integer devId) {
-        this.devId = devId;
-    }
+    public Float getPrice() { return price; }
+    public void setPrice(Float price) { this.price = price; }
 
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
-
-    Integer gameId;
-    Integer devId;
-    String title;
-    String tags;
-    String description;
-    Float price;
-    Integer discount;
-
-
+    public Integer getDiscount() { return discount; }
+    public void setDiscount(Integer discount) { this.discount = discount; }
 }
