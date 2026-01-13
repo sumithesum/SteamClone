@@ -20,9 +20,20 @@ public class PlayerRepository {
 
 
     public List<Player> findAll() {
-        return jdbcTemplate.query("SELECT * FROM player",
-                new BeanPropertyRowMapper<>(Player.class));
+        String sql = """
+        SELECT
+            player_id AS id,
+            username,
+            email,
+            phone,
+            password,
+            bank,
+            private AS privatef
+        FROM Player
+    """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Player.class));
     }
+
 
 
     public void add(Player player) {

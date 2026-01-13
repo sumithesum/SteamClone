@@ -16,9 +16,20 @@ public class DeveloperRepository {
     }
 
     public List<Developer> findAll() {
-        return jdbcTemplate.query("SELECT * FROM Developer",
-                new BeanPropertyRowMapper<>(Developer.class));
+        String sql = """
+        SELECT
+            developer_id AS id,
+            username,
+            email,
+            phone,
+            password,
+            bank,
+            studio_name AS studioName
+        FROM Developer
+    """;
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Developer.class));
     }
+
 
 
     public void add(Developer developer) {
