@@ -49,6 +49,26 @@ public class GameRepository {
 
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Game.class), devName);
     }
+    public record GamePurchaseInfo(Integer devId, Float price, Float discount) {}
+
+    public GamePurchaseInfo findPurchaseInfoById(Integer gameId) {
+        String sql = """
+        SELECT developer_id AS devId,
+               price,
+               discount
+        FROM Game
+        WHERE game_id = ?
+    """;
+
+        return jdbcTemplate.query(sql, rs -> {
+            if (!rs.next()) return null;
+            Integer devId = rs.getInt("devId");
+            Float price = rs.getFloat("price");
+            Float discount = rs.getFloat("discount");
+            return new GamePurchaseInfo(devId, price, discount);
+        }, gameId);
+    }
+
 
     public void add(Game game) {
         String sql = """

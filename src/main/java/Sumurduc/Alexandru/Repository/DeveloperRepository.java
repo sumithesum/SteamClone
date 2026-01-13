@@ -39,6 +39,13 @@ public class DeveloperRepository {
 
         System.out.println("Developer added: " + developer.getUsername());
     }
+
+    public int addMoney(Integer developerId, Float amount) {
+        String sql = "UPDATE Developer SET bank = bank + ? WHERE developer_id = ?";
+        return jdbcTemplate.update(sql, amount, developerId);
+    }
+
+
     public int deleteByUsername(String username) {
         String sql = "DELETE FROM Developer WHERE username = ?";
         return jdbcTemplate.update(sql, username);

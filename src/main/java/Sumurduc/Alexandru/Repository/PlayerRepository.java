@@ -52,6 +52,20 @@ public class PlayerRepository {
         return jdbcTemplate.queryForObject(sql,Integer.class,username);
     }
 
+    public int addMoney(Integer playerId, Float amount) {
+        String sql = "UPDATE Player SET bank = bank + ? WHERE player_id = ?";
+        return jdbcTemplate.update(sql, amount, playerId);
+    }
+    public int subtractMoneyIfEnough(Integer playerId, Float amount) {
+        String sql = """
+        UPDATE Player
+        SET bank = bank - ?
+        WHERE player_id = ? AND bank >= ?
+    """;
+        return jdbcTemplate.update(sql, amount, playerId, amount);
+    }
+
+
 //    public Integer update(String username,Integer pozition){
 //        String sql = "SELECT * FROM player WHERE username = ?";
 //

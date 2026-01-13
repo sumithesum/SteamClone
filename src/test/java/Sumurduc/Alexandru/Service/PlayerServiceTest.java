@@ -41,4 +41,15 @@ class PlayerServiceTest {
         when(playerRepository.deleteByUsername("missing")).thenReturn(0);
         assertFalse(playerService.deleteByUsername("missing"));
     }
+    @Test
+    void addMoney_returnsTrueWhenUpdated() {
+        when(playerRepository.addMoney(1, 50f)).thenReturn(1);
+        assertTrue(playerService.addMoney(1, 50f));
+    }
+
+    @Test
+    void addMoney_throwsWhenNegative() {
+        assertThrows(IllegalArgumentException.class, () -> playerService.addMoney(1, -10f));
+    }
+
 }

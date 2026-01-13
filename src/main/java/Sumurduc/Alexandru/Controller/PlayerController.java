@@ -36,4 +36,15 @@ public class PlayerController {
         return deleted ? ResponseEntity.noContent().build()
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Player not found");
     }
+
+    @PatchMapping("/{playerId}/add-money")
+    public ResponseEntity<?> addMoney(
+            @PathVariable Integer playerId,
+            @RequestParam Float amount
+    ) {
+        boolean ok = playerService.addMoney(playerId, amount);
+        return ok ? ResponseEntity.noContent().build()
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Player not found");
+    }
+
 }
